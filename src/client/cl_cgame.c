@@ -187,7 +187,7 @@ qboolean CL_GetSnapshot(int snapshotNumber, snapshot_t *snapshot)
 	for (i = 0 ; i < count ; i++)
 	{
 		snapshot->entities[i] =
-		    cl.parseEntities[(clSnap->parseEntitiesNum + i) & (MAX_PARSE_ENTITIES - 1)];
+			cl.parseEntities[(clSnap->parseEntitiesNum + i) & (MAX_PARSE_ENTITIES - 1)];
 	}
 
 	// FIXME: configstring changes and server commands!!!
@@ -580,6 +580,7 @@ void CL_CM_LoadMap(const char *mapname)
 	Con_ScrollBottom();
 
 	CM_LoadMap(mapname, qtrue, &checksum);
+	tc_vis_init();
 }
 
 /**
@@ -828,6 +829,7 @@ intptr_t CL_CgameSystemCalls(intptr_t *args)
 		re.SetGlobalFog(args[1], args[2], VMF(3), VMF(4), VMF(5), VMF(6));
 		return 0;
 	case CG_R_RENDERSCENE:
+		tc_vis_render();
 		re.RenderScene(VMA(1));
 		return 0;
 	case CG_R_SAVEVIEWPARMS:

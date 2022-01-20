@@ -444,7 +444,7 @@ float Q_crandom(int *seed);
 #define crandom()   (2.0f * (random() - 0.5f))
 
 void SetPlaneSignbits(struct cplane_s *out);
-int BoxOnPlaneSide(vec3_t emins, vec3_t emaxs, struct cplane_s *p);
+int BoxOnPlaneSide(const vec3_t emins, const vec3_t emaxs, const struct cplane_s *p);
 
 qboolean PlaneFromPoints(vec4_t plane, const vec3_t a, const vec3_t b, const vec3_t c);
 void ProjectPointOnPlane(vec3_t dst, const vec3_t p, const vec3_t normal);

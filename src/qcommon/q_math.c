@@ -1017,7 +1017,7 @@ int BoxOnPlaneSide2 (vec3_t emins, vec3_t emaxs, struct cplane_s *p)
  * @param[in] p
  * @return
  */
-int BoxOnPlaneSide(vec3_t emins, vec3_t emaxs, struct cplane_s *p)
+int BoxOnPlaneSide(const vec3_t emins, const vec3_t emaxs, const struct cplane_s *p)
 {
 	float dist1, dist2;
 	int   sides;

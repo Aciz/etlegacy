@@ -226,7 +226,7 @@ static void InitOpenGL(void)
 		if (r_scale->value)
 		{
 			float scale = Com_Clamp(0.2f, 4.f, r_scale->value);
-			glConfig.vidWidth *= scale;
+			glConfig.vidWidth  *= scale;
 			glConfig.vidHeight *= scale;
 		}
 	}
@@ -571,16 +571,16 @@ const void *RB_TakeScreenshotCmd(const void *data)
 
 	switch (cmd->format)
 	{
-		case SSF_TGA:
-			RB_TakeScreenshotTGA(cmd->x, cmd->y, cmd->width, cmd->height, cmd->fileName);
-			break;
-		case SSF_JPEG:
-			RB_TakeScreenshotJPEG(cmd->x, cmd->y, cmd->width, cmd->height, cmd->fileName);
-			break;
+	case SSF_TGA:
+		RB_TakeScreenshotTGA(cmd->x, cmd->y, cmd->width, cmd->height, cmd->fileName);
+		break;
+	case SSF_JPEG:
+		RB_TakeScreenshotJPEG(cmd->x, cmd->y, cmd->width, cmd->height, cmd->fileName);
+		break;
 #ifdef FEATURE_PNG
-		case SSF_PNG:
-			RB_TakeScreenshotPNG(cmd->x, cmd->y, cmd->width, cmd->height, cmd->fileName);
-			break;
+	case SSF_PNG:
+		RB_TakeScreenshotPNG(cmd->x, cmd->y, cmd->width, cmd->height, cmd->fileName);
+		break;
 #endif
 	}
 
@@ -828,19 +828,19 @@ void R_ScreenShot_f(void)
 
 	switch (format)
 	{
-		case SSF_TGA:
-			ext = "tga";
-			break;
-		case SSF_JPEG:
-			ext = "jpg";
-			break;
+	case SSF_TGA:
+		ext = "tga";
+		break;
+	case SSF_JPEG:
+		ext = "jpg";
+		break;
 #ifdef FEATURE_PNG
-		case SSF_PNG:
-			ext = "png";
-			break;
+	case SSF_PNG:
+		ext = "png";
+		break;
 #endif
-		default:
-			return;
+	default:
+		return;
 	}
 
 	if (!strcmp(ri.Cmd_Argv(1), "levelshot"))
@@ -861,7 +861,7 @@ void R_ScreenShot_f(void)
 	if (ri.Cmd_Argc() == 2 && !silent)
 	{
 		// explicit filename
-		const char* fileExt = COM_GetExtension(ri.Cmd_Argv(1));
+		const char *fileExt = COM_GetExtension(ri.Cmd_Argv(1));
 		if (fileExt[0])
 		{
 			char filename[MAX_QPATH];
@@ -869,18 +869,18 @@ void R_ScreenShot_f(void)
 
 			if (COM_CompareExtension(fileExt, "tga"))
 			{
-				ext = "tga";
+				ext    = "tga";
 				format = SSF_TGA;
 			}
 			else if (COM_CompareExtension(fileExt, "jpg") || COM_CompareExtension(fileExt, "jpeg"))
 			{
-				ext = "jpg";
+				ext    = "jpg";
 				format = SSF_JPEG;
 			}
 #ifdef FEATURE_PNG
 			else if (COM_CompareExtension(fileExt, "png"))
 			{
-				ext = "png";
+				ext    = "png";
 				format = SSF_PNG;
 			}
 #endif
@@ -975,6 +975,14 @@ void GL_SetDefaultState(void)
 	glEnable(GL_SCISSOR_TEST);
 	glDisable(GL_CULL_FACE);
 	glDisable(GL_BLEND);
+}
+
+/**
+ * @brief cplane_t
+ */
+static const cplane_t *RE_GetFrustum(void)
+{
+	return tr.viewParms.frustum;
 }
 
 /**
@@ -1389,9 +1397,9 @@ void R_DebugPolygon(int color, int numPoints, float *points);
  * @param[in] rimp
  * @return
  */
-Q_EXPORT refexport_t * QDECL GetRefAPI(int apiVersion, refimport_t *rimp)
+Q_EXPORT refexport_t *QDECL GetRefAPI(int apiVersion, refimport_t *rimp)
 #else
-refexport_t * GetRefAPI(int apiVersion, refimport_t * rimp)
+refexport_t *GetRefAPI(int apiVersion, refimport_t *rimp)
 #endif
 {
 	static refexport_t re;
@@ -1476,6 +1484,8 @@ refexport_t * GetRefAPI(int apiVersion, refimport_t * rimp)
 	re.TakeVideoFrame      = RE_TakeVideoFrame;
 	re.InitOpenGL          = RE_InitOpenGl;
 	re.InitOpenGLSubSystem = RE_InitOpenGlSubsystems;
+
+	re.GetFrustum = RE_GetFrustum;
 
 	return &re;
 }
