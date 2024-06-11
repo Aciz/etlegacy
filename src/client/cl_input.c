@@ -676,7 +676,7 @@ void IN_Help(void)
 {
 	if (cls.state == CA_ACTIVE && !clc.demo.playing)
 	{
-		VM_Call(uivm, UI_SET_ACTIVE_MENU, UIMENU_HELP);          // startup help system
+		VM_Call(uivm, 5, UI_SET_ACTIVE_MENU, UIMENU_HELP);          // startup help system
 	}
 }
 
@@ -854,7 +854,7 @@ void CL_MouseEvent(int dx, int dy, int time)
 		else
 		{
 			CL_MouseEventScale(dx, dy, &mdx, &mdy);
-			VM_Call(uivm, UI_MOUSE_EVENT, (int)mdx, (int)mdy);
+			VM_Call(uivm, 5, UI_MOUSE_EVENT, (int)mdx, (int)mdy);
 		}
 	}
 	else if (cls.keyCatchers & KEYCATCH_CGAME)
@@ -867,7 +867,7 @@ void CL_MouseEvent(int dx, int dy, int time)
 		else
 		{
 			CL_MouseEventScale(dx, dy, &mdx, &mdy);
-			VM_Call(cgvm, CG_MOUSE_EVENT, (int)mdx, (int)mdy);
+			VM_Call(cgvm, 5, CG_MOUSE_EVENT, (int)mdx, (int)mdy);
 		}
 	}
 	else

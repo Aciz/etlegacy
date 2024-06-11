@@ -1473,13 +1473,13 @@ void CL_KeyEvent(int key, qboolean down, unsigned time)
 		if (cls.keyCatchers & KEYCATCH_CGAME)
 		{
 			cls.keyCatchers &= ~KEYCATCH_CGAME;
-			VM_Call(cgvm, CG_EVENT_HANDLING, CGAME_EVENT_NONE);
+			VM_Call(cgvm, 5, CG_EVENT_HANDLING, CGAME_EVENT_NONE);
 
 			if (clc.demo.playing)
 			{
 				CL_Disconnect_f();
 				S_StopAllSounds();
-				VM_Call(uivm, UI_SET_ACTIVE_MENU, UIMENU_MAIN);
+				VM_Call(uivm, 5, UI_SET_ACTIVE_MENU, UIMENU_MAIN);
 			}
 
 			return;
@@ -1489,18 +1489,18 @@ void CL_KeyEvent(int key, qboolean down, unsigned time)
 		{
 			if (cls.state == CA_ACTIVE && !clc.demo.playing)
 			{
-				VM_Call(uivm, UI_SET_ACTIVE_MENU, UIMENU_INGAME);
+				VM_Call(uivm, 5, UI_SET_ACTIVE_MENU, UIMENU_INGAME);
 			}
 			else
 			{
 				CL_Disconnect_f();
 				S_StopAllSounds();
-				VM_Call(uivm, UI_SET_ACTIVE_MENU, UIMENU_MAIN);
+				VM_Call(uivm, 5, UI_SET_ACTIVE_MENU, UIMENU_MAIN);
 			}
 			return;
 		}
 
-		VM_Call(uivm, UI_KEY_EVENT, key, down);
+		VM_Call(uivm, 5, UI_KEY_EVENT, key, down);
 		return;
 	}
 
@@ -1522,16 +1522,16 @@ void CL_KeyEvent(int key, qboolean down, unsigned time)
 
 		if ((cls.keyCatchers & KEYCATCH_UI) && uivm)
 		{
-			if (!onlybinds || VM_Call(uivm, UI_WANTSBINDKEYS))
+			if (!onlybinds || VM_Call(uivm, 5, UI_WANTSBINDKEYS))
 			{
-				VM_Call(uivm, UI_KEY_EVENT, key, down);
+				VM_Call(uivm, 5, UI_KEY_EVENT, key, down);
 			}
 		}
 		else if ((cls.keyCatchers & KEYCATCH_CGAME) && cgvm)
 		{
-			if (!onlybinds || VM_Call(cgvm, CG_WANTSBINDKEYS))
+			if (!onlybinds || VM_Call(cgvm, 5, CG_WANTSBINDKEYS))
 			{
-				VM_Call(cgvm, CG_KEY_EVENT, key, down);
+				VM_Call(cgvm, 5, CG_KEY_EVENT, key, down);
 			}
 		}
 
@@ -1564,18 +1564,18 @@ void CL_KeyEvent(int key, qboolean down, unsigned time)
 	}
 	else if ((cls.keyCatchers & KEYCATCH_UI) && !bypassMenu)
 	{
-		if (!onlybinds || VM_Call(uivm, UI_WANTSBINDKEYS))
+		if (!onlybinds || VM_Call(uivm, 5, UI_WANTSBINDKEYS))
 		{
-			VM_Call(uivm, UI_KEY_EVENT, key, down);
+			VM_Call(uivm, 5, UI_KEY_EVENT, key, down);
 		}
 	}
 	else if ((cls.keyCatchers & KEYCATCH_CGAME) && !bypassMenu)
 	{
 		if (cgvm)
 		{
-			if (!onlybinds || VM_Call(cgvm, CG_WANTSBINDKEYS))
+			if (!onlybinds || VM_Call(cgvm, 5, CG_WANTSBINDKEYS))
 			{
-				VM_Call(cgvm, CG_KEY_EVENT, key, down);
+				VM_Call(cgvm, 5, CG_KEY_EVENT, key, down);
 			}
 		}
 	}
@@ -1638,11 +1638,11 @@ void CL_CharEvent(int key)
 	}
 	else if (cls.keyCatchers & KEYCATCH_UI)
 	{
-		VM_Call(uivm, UI_KEY_EVENT, key | K_CHAR_FLAG, qtrue);
+		VM_Call(uivm, 5, UI_KEY_EVENT, key | K_CHAR_FLAG, qtrue);
 	}
 	else if (cls.keyCatchers & KEYCATCH_CGAME)
 	{
-		VM_Call(cgvm, CG_KEY_EVENT, key | K_CHAR_FLAG, qtrue);
+		VM_Call(cgvm, 5, CG_KEY_EVENT, key | K_CHAR_FLAG, qtrue);
 	}
 	else if (cls.state == CA_DISCONNECTED)
 	{

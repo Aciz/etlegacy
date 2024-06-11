@@ -432,7 +432,7 @@ codec_found_valid:
 		// Force console and GUI off
 		if (uivm)
 		{
-			VM_Call(uivm, UI_SET_ACTIVE_MENU, UIMENU_NONE);
+			VM_Call(uivm, 5, UI_SET_ACTIVE_MENU, UIMENU_NONE);
 		}
 
 		Con_Close();

@@ -2406,5 +2406,5 @@ void SV_DemoSupport(const char *commands)
 
 static void SV_DemoStateChanged(void)
 {
-	VM_Call(gvm, GAME_DEMOSTATECHANGED, sv_demoState->integer, sv_democlients->integer);
+	VM_Call(gvm, 5, GAME_DEMOSTATECHANGED, sv_demoState->integer, sv_democlients->integer);
 }

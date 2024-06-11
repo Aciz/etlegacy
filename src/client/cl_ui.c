@@ -1380,7 +1380,7 @@ void CL_ShutdownUI(void)
 	{
 		return;
 	}
-	VM_Call(uivm, UI_SHUTDOWN);
+	VM_Call(uivm, 5, UI_SHUTDOWN);
 	VM_Free(uivm);
 	uivm = NULL;
 }
@@ -1402,7 +1402,7 @@ void CL_InitUI(void)
 	}
 
 	// sanity check
-	v = VM_Call(uivm, UI_GETAPIVERSION);
+	v = VM_Call(uivm, 5, UI_GETAPIVERSION);
 	if (v != UI_API_VERSION)
 	{
 		Com_Error(ERR_FATAL, "User Interface is version %d, expected %d", v, UI_API_VERSION);
@@ -1410,14 +1410,14 @@ void CL_InitUI(void)
 	}
 
 	// init for this gamestate
-	VM_Call(uivm, UI_INIT, (cls.state >= CA_AUTHORIZING && cls.state < CA_ACTIVE), qtrue, ETLEGACY_VERSION_INT);
+	VM_Call(uivm, 5, UI_INIT, (cls.state >= CA_AUTHORIZING && cls.state < CA_ACTIVE), qtrue, ETLEGACY_VERSION_INT);
 }
 
 qboolean UI_checkKeyExec(int key)
 {
 	if (uivm)
 	{
-		return (qboolean)(VM_Call(uivm, UI_CHECKEXECKEY, key));
+		return (qboolean)(VM_Call(uivm, 5, UI_CHECKEXECKEY, key));
 	}
 	else
 	{
@@ -1436,5 +1436,5 @@ qboolean UI_GameCommand(void)
 		return qfalse;
 	}
 
-	return (qboolean)(VM_Call(uivm, UI_CONSOLE_COMMAND, cls.realtime));
+	return (qboolean)(VM_Call(uivm, 5, UI_CONSOLE_COMMAND, cls.realtime));
 }

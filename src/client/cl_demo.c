@@ -444,7 +444,7 @@ static void CL_DemoFastForward(double wantedTime)
 		// if we are about to go over command buffer let cgame execute them and then continue
 		if (cmd + MAX_RELIABLE_COMMANDS - 10 <= clc.lastExecutedServerCommand)
 		{
-			VM_Call(cgvm, CG_DRAW_ACTIVE_FRAME, cl.snap.serverTime, 0, clc.demo.playing);
+			VM_Call(cgvm, 5, CG_DRAW_ACTIVE_FRAME, cl.snap.serverTime, 0, clc.demo.playing);
 			S_StopAllSounds();
 			cmd = clc.lastExecutedServerCommand;
 		}

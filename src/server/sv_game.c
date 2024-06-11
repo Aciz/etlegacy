@@ -419,7 +419,7 @@ static int SV_BinaryMessageStatus(int cno)
  */
 void SV_GameBinaryMessageReceived(int cno, const char *buf, int buflen, int commandTime)
 {
-	VM_Call(gvm, GAME_MESSAGERECEIVED, cno, buf, buflen, commandTime);
+	VM_Call(gvm, 5, GAME_MESSAGERECEIVED, cno, buf, buflen, commandTime);
 }
 
 //==============================================
@@ -735,7 +735,7 @@ void SV_ShutdownGameProgs(void)
 	SV_DemoStopAll();
 
 	// shutdown game
-	VM_Call(gvm, GAME_SHUTDOWN, qfalse);
+	VM_Call(gvm, 5, GAME_SHUTDOWN, qfalse);
 	VM_Free(gvm);
 	gvm = NULL;
 
@@ -767,7 +767,7 @@ static void SV_InitGameVM(qboolean restart)
 
 	// use the current msec count for a random seed
 	// init for this gamestate
-	VM_Call(gvm, GAME_INIT, sv.time, Com_Milliseconds(), restart, qtrue, ETLEGACY_VERSION_INT);
+	VM_Call(gvm, 5, GAME_INIT, sv.time, Com_Milliseconds(), restart, qtrue, ETLEGACY_VERSION_INT);
 }
 
 /**
@@ -779,7 +779,7 @@ void SV_RestartGameProgs(void)
 	{
 		return;
 	}
-	VM_Call(gvm, GAME_SHUTDOWN, qtrue);
+	VM_Call(gvm, 5, GAME_SHUTDOWN, qtrue);
 
 	// do a restart instead of a free
 	gvm = VM_Restart(gvm);
@@ -839,7 +839,7 @@ qboolean SV_GameCommand(void)
 		return qfalse;
 	}
 
-	return VM_Call(gvm, GAME_CONSOLE_COMMAND);
+	return VM_Call(gvm, 5, GAME_CONSOLE_COMMAND);
 }
 
 #ifndef DEDICATED

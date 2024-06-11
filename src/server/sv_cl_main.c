@@ -1496,7 +1496,7 @@ void SV_CL_RunFrame(void)
 			svcls.lastRunFrameTime    = sv.time;
 			svcls.lastRunFrameSysTime = systime;
 
-			VM_Call(gvm, GAME_RUN_FRAME, sv.time);
+			VM_Call(gvm, 5, GAME_RUN_FRAME, sv.time);
 
 			SV_SendClientMessages();
 			return;
@@ -1512,7 +1512,7 @@ void SV_CL_RunFrame(void)
 		svcls.lastRunFrameTime    = sv.time;
 		svcls.lastRunFrameSysTime = systime;
 
-		VM_Call(gvm, GAME_RUN_FRAME, sv.time);
+		VM_Call(gvm, 5, GAME_RUN_FRAME, sv.time);
 	}
 }
 

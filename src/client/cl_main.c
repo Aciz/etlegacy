@@ -657,7 +657,7 @@ void CL_Disconnect(qboolean showMainMenu)
 
 	if (uivm && showMainMenu)
 	{
-		VM_Call(uivm, UI_SET_ACTIVE_MENU, UIMENU_NONE);
+		VM_Call(uivm, 5, UI_SET_ACTIVE_MENU, UIMENU_NONE);
 	}
 
 	SCR_StopCinematic();
@@ -2550,7 +2550,7 @@ void CL_Frame(int msec)
 	{
 		// if disconnected, bring up the menu
 		S_StopAllSounds();
-		VM_Call(uivm, UI_SET_ACTIVE_MENU, UIMENU_MAIN);
+		VM_Call(uivm, 5, UI_SET_ACTIVE_MENU, UIMENU_MAIN);
 	}
 
 	CL_FrameHandleVideo(&msec);

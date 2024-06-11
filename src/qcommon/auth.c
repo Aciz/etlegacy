@@ -129,7 +129,7 @@ void Auth_SV_SetUserinfoAuth(void *gameClient)
 
 static void Auth_SV_UserInfoChanged(client_t *client)
 {
-	VM_Call(gvm, GAME_CLIENT_USERINFO_CHANGED, client - svs.clients);
+	VM_Call(gvm, 5, GAME_CLIENT_USERINFO_CHANGED, client - svs.clients);
 }
 
 static void Auth_SV_ChallengeReceived(client_t *client, const char *challenge)

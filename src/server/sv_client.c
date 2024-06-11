@@ -626,7 +626,7 @@ gotnewcl:
 	}
 
 	// get the game a chance to reject this connection or modify the userinfo
-	denied = (char *)(VM_Call(gvm, GAME_CLIENT_CONNECT, clientNum, qtrue, qfalse)); // firstTime = qtrue
+	denied = (char *)(VM_Call(gvm, 5, GAME_CLIENT_CONNECT, clientNum, qtrue, qfalse)); // firstTime = qtrue
 	if (denied)
 	{
 		// we can't just use VM_ArgPtr, because that is only valid inside a VM_Call
@@ -792,7 +792,7 @@ void SV_DropClient(client_t *drop, const char *reason)
 
 	// call the prog function for removing a client
 	// this will remove the body, among other things
-	VM_Call(gvm, GAME_CLIENT_DISCONNECT, drop - svs.clients);
+	VM_Call(gvm, 5, GAME_CLIENT_DISCONNECT, drop - svs.clients);
 
 	// add the disconnect command
 	SV_SendServerCommand(drop, "disconnect \"%s\"\n", reason);
@@ -993,7 +993,7 @@ void SV_ClientEnterWorld(client_t *client, usercmd_t *cmd)
 	}
 
 	// call the game begin function
-	VM_Call(gvm, GAME_CLIENT_BEGIN, client - svs.clients);
+	VM_Call(gvm, 5, GAME_CLIENT_BEGIN, client - svs.clients);
 }
 
 /*
@@ -2097,7 +2097,7 @@ void SV_UpdateUserinfo_f(client_t *cl)
 
 	SV_UserinfoChanged(cl);
 	// call prog code to allow overrides
-	VM_Call(gvm, GAME_CLIENT_USERINFO_CHANGED, cl - svs.clients);
+	VM_Call(gvm, 5, GAME_CLIENT_USERINFO_CHANGED, cl - svs.clients);
 }
 
 typedef struct
@@ -2175,7 +2175,7 @@ void SV_ExecuteClientCommand(client_t *cl, const char *s, qboolean clientOK, qbo
 			}
 
 			Cmd_Args_Sanitize();
-			VM_Call(gvm, GAME_CLIENT_COMMAND, cl - svs.clients);
+			VM_Call(gvm, 5, GAME_CLIENT_COMMAND, cl - svs.clients);
 		}
 	}
 	else if (!bProcessed)
@@ -2282,7 +2282,7 @@ void SV_ClientThink(client_t *cl, usercmd_t *cmd)
 		return;     // may have been kicked during the last usercmd
 	}
 
-	VM_Call(gvm, GAME_CLIENT_THINK, cl - svs.clients);
+	VM_Call(gvm, 5, GAME_CLIENT_THINK, cl - svs.clients);
 }
 
 /**

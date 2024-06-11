@@ -246,7 +246,7 @@ qboolean CL_CGameCheckKeyExec(int key)
 {
 	if (cgvm)
 	{
-		return (qboolean)(VM_Call(cgvm, CG_CHECKEXECKEY, key));
+		return (qboolean)(VM_Call(cgvm, 5, CG_CHECKEXECKEY, key));
 	}
 	else
 	{
@@ -593,7 +593,7 @@ void CL_CGameBinaryMessageReceived(const byte *buf, int buflen, int serverTime)
 	}
 	else
 	{
-		VM_Call(cgvm, CG_MESSAGERECEIVED, buf, buflen, serverTime);
+		VM_Call(cgvm, 5, CG_MESSAGERECEIVED, buf, buflen, serverTime);
 	}
 }
 
@@ -632,7 +632,7 @@ void CL_ShutdownCGame(void)
 	{
 		return;
 	}
-	VM_Call(cgvm, CG_SHUTDOWN);
+	VM_Call(cgvm, 5, CG_SHUTDOWN);
 	VM_Free(cgvm);
 	cgvm = NULL;
 }
@@ -995,7 +995,7 @@ intptr_t CL_CgameSystemCalls(intptr_t *args)
 		{
 			if (uivm)     // can be called as the system is shutting down
 			{
-				VM_Call(uivm, UI_SET_ACTIVE_MENU, args[1]);
+				VM_Call(uivm, 5, UI_SET_ACTIVE_MENU, args[1]);
 			}
 		}
 		return 0;
@@ -1225,7 +1225,7 @@ void CL_InitCGame(void)
 	// use the lastExecutedServerCommand instead of the serverCommandSequence
 	// otherwise server commands sent just before a gamestate are dropped
 	// bani - added clc.playing, since some mods need this at init time, and drawactiveframe is too late for them
-	VM_Call(cgvm, CG_INIT, clc.serverMessageSequence, clc.lastExecutedServerCommand, clc.clientNum, clc.demo.playing, qtrue, (clc.demo.playing ? &dpi : 0), ETLEGACY_VERSION_INT);
+	VM_Call(cgvm, 5, CG_INIT, clc.serverMessageSequence, clc.lastExecutedServerCommand, clc.clientNum, clc.demo.playing, qtrue, (clc.demo.playing ? &dpi : 0), ETLEGACY_VERSION_INT);
 
 	// reset any CVAR_CHEAT cvars registered by cgame
 	if (!clc.demo.playing && !cl_connectedToCheatServer)
@@ -1269,7 +1269,7 @@ qboolean CL_GameCommand(void)
 		return qfalse;
 	}
 
-	return (qboolean)(VM_Call(cgvm, CG_CONSOLE_COMMAND));
+	return (qboolean)(VM_Call(cgvm, 5, CG_CONSOLE_COMMAND));
 }
 
 qboolean CL_GameCompleteCommand(void)
@@ -1284,7 +1284,7 @@ qboolean CL_GameCompleteCommand(void)
 		return qfalse;
 	}
 
-	return (qboolean)(VM_Call(cgvm, CG_CONSOLE_COMPLETE_ARGUMENT));
+	return (qboolean)(VM_Call(cgvm, 5, CG_CONSOLE_COMPLETE_ARGUMENT));
 }
 
 /**
@@ -1292,7 +1292,7 @@ qboolean CL_GameCompleteCommand(void)
  */
 void CL_CGameRendering(void)
 {
-	VM_Call(cgvm, CG_DRAW_ACTIVE_FRAME, cl.serverTime, 0, clc.demo.playing);
+	VM_Call(cgvm, 5, CG_DRAW_ACTIVE_FRAME, cl.serverTime, 0, clc.demo.playing);
 	VM_Debug(0);
 }
 
@@ -1697,5 +1697,5 @@ qboolean CL_GetTag(int clientNum, char *tagname, orientation_t *orientation)
 		return qfalse;
 	}
 
-	return VM_Call(cgvm, CG_GET_TAG, clientNum, tagname, orientation);
+	return VM_Call(cgvm, 5, CG_GET_TAG, clientNum, tagname, orientation);
 }

@@ -735,7 +735,7 @@ void *VM_ExplicitArgPtr(vm_t *vm, intptr_t intValue)
  * @param[in] callNum
  * @return
  */
-intptr_t QDECL VM_CallFunc(vm_t *vm, int callNum, ...)
+intptr_t QDECL VM_CallFunc(vm_t *vm, int foo, int callNum, ...)
 {
 	vm_t     *oldVM;
 	intptr_t r;

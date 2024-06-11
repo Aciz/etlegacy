@@ -1672,7 +1672,7 @@ static void SV_Frame_Ext(int frameMsec)
 		sv.time         += frameMsec;
 
 		// let everything in the world think and move
-		VM_Call(gvm, GAME_RUN_FRAME, sv.time);
+		VM_Call(gvm, 5, GAME_RUN_FRAME, sv.time);
 
 		// play/record demo frame (if enabled)
 		if (sv.demoState == DS_RECORDING) // Record the frame

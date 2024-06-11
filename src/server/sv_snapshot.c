@@ -448,7 +448,7 @@ static void SV_AddEntToSnapshot(sharedEntity_t *clientEnt, svEntity_t *svEnt, sh
 
 	if (gEnt->r.snapshotCallback)
 	{
-		if (!(qboolean)(VM_Call(gvm, GAME_SNAPSHOT_CALLBACK, gEnt->s.number, clientEnt->s.number)))
+		if (!(qboolean)(VM_Call(gvm, 5, GAME_SNAPSHOT_CALLBACK, gEnt->s.number, clientEnt->s.number)))
 		{
 			return;
 		}

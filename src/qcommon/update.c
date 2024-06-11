@@ -508,10 +508,10 @@ void Com_UpdateInfoPacket(netadr_t from)
 #ifndef DEDICATED
 		if (uivm)
 		{
-			uiMenuCommand_t currentMenu = (uiMenuCommand_t)(VM_Call(uivm, UI_GET_ACTIVE_MENU));
+			uiMenuCommand_t currentMenu = (uiMenuCommand_t)(VM_Call(uivm, 5, UI_GET_ACTIVE_MENU));
 			if (currentMenu != UIMENU_WM_AUTOUPDATE)
 			{
-				VM_Call(uivm, UI_SET_ACTIVE_MENU, UIMENU_WM_AUTOUPDATE);
+				VM_Call(uivm, 5, UI_SET_ACTIVE_MENU, UIMENU_WM_AUTOUPDATE);
 			}
 		}
 		else

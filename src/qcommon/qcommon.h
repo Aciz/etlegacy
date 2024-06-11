@@ -519,7 +519,7 @@ void VM_Clear(void);
 vm_t *VM_Restart(vm_t *vm);
 void VM_Error(errorParm_t errorParm, const char *module, const char *filename);
 
-intptr_t QDECL VM_CallFunc(vm_t *vm, int callNum, ...);
+intptr_t QDECL VM_CallFunc(vm_t *vm, int foo, int callNum, ...);
 #define VM_Call(...) VM_CallFunc(__VA_ARGS__, VM_CALL_END)
 
 void VM_Debug(int level);
