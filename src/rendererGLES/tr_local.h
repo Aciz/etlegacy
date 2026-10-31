@@ -1422,6 +1422,7 @@ typedef struct
 
 	int numLightmaps;
 	image_t *lightmaps[MAX_LIGHTMAPS];
+	qboolean externalLightmaps;
 
 	trRefEntity_t *currentEntity;
 	trRefEntity_t worldEntity;                  ///< point currentEntity at this when rendering world

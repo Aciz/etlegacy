@@ -3276,8 +3276,8 @@ void R_FindLightmap(int *lightmapIndex)
 		return;
 	}
 
-	// bail if no world dir
-	if (tr.worldDir == NULL)
+	// bail if no world dir or no external lightmaps
+	if (tr.worldDir == NULL || !tr.externalLightmaps)
 	{
 		*lightmapIndex = LIGHTMAP_BY_VERTEX;
 		return;

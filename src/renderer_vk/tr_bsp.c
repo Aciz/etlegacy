@@ -217,6 +217,12 @@ float R_ProcessLightmap(byte *pic, int in_padding, int width, int height, byte *
 	return maxIntensity;
 }
 
+static void R_CheckExternalLightmaps(void)
+{
+	const image_t *image = R_FindImageFile(va("%s/lm_0000.tga", tr.worldDir), qfalse, qfalse, GL_CLAMP_TO_EDGE, qtrue);
+	tr.externalLightmaps = image ? qtrue : qfalse;
+}
+
 #define LIGHTMAP_SIZE   128
 
 /**
@@ -2821,6 +2827,8 @@ void RE_LoadWorldMap(const char *name)
 	// load into heap
 	Ren_UpdateScreen();
 	R_LoadShaders(&header->lumps[LUMP_SHADERS]);
+	Ren_UpdateScreen();
+	R_CheckExternalLightmaps();
 	Ren_UpdateScreen();
 	R_LoadLightmaps(&header->lumps[LUMP_LIGHTMAPS]);
 	Ren_UpdateScreen();
